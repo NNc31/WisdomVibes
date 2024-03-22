@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.wisdomvibes.com/quotes"
+           xmlns="http://www.wisdomvibes.com/quotes"
+           elementFormDefault="qualified">
+
+    <xs:element name="addQuoteRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="text" type="xs:string"/>
+                <xs:element name="author" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addQuoteResponse" type="quoteType"/>
+
+    <xs:element name="findByAuthorRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="author" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findByAuthorResponse" type="quoteListType"/>
+
+    <xs:element name="findAllAuthorsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="quoteListType">
+        <xs:sequence>
+            <xs:element name="quote" type="quoteType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:element name="randomQuoteRequest"/>
+    <xs:element name="randomQuoteResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="quote" type="quoteType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findAllAuthorsRequest"/>
+
+    <xs:complexType name="quoteType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="text" type="xs:string"/>
+            <xs:element name="author" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
