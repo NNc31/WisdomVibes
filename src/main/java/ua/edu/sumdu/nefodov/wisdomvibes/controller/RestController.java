@@ -30,8 +30,24 @@ public class RestController {
         }
     }
 
+    @GetMapping(value ="/random/xml", produces = "application/xml")
+    public Quote randomXmlQuote() {
+        long quoteCnt = quoteRepository.count();
+        if (quoteCnt > 0) {
+            long randomLong = new Random().nextLong(quoteCnt + 1);
+            return quoteRepository.findById(randomLong).orElse(null);
+        } else {
+            return null;
+        }
+    }
+
     @PostMapping("/add")
     public Quote addQuote(@RequestBody Quote newQuote) {
+        return quoteRepository.save(newQuote);
+    }
+
+    @PostMapping(value = "/add/xml", consumes = "application/xml", produces = "application/xml")
+    public Quote addXmlQuote(@RequestBody Quote newQuote) {
         return quoteRepository.save(newQuote);
     }
 
@@ -41,8 +57,24 @@ public class RestController {
         return quoteRepository.findByAuthor(author);
     }
 
+    @GetMapping(value = "/author/{author}/xml", produces = "application/xml")
+    public Quote[] findByXmlAuthor(@PathVariable String author) {
+        author = author.replace('_', ' ').strip();
+        List<Quote> quotes = quoteRepository.findByAuthor(author);
+        Quote[] quoteArr = new Quote[quotes.size()];
+        for (int i = 0; i < quotes.size(); i++) {
+            quoteArr[i] = quotes.get(i);
+        }
+        return quoteArr;
+    }
+
     @GetMapping(value = "/authors", produces = "application/json")
     public List<String> findAllAuthors() {
+        return quoteRepository.findDistinctAuthors();
+    }
+
+    @GetMapping(value = "/authors/xml", produces = "application/xml")
+    public List<String> findAllAuthorsXml() {
         return quoteRepository.findDistinctAuthors();
     }
 }

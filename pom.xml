@@ -58,6 +58,12 @@
             <artifactId>spring-ws-core</artifactId>
             <version>4.0.10</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.20</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -85,25 +91,6 @@
                     </sources>
                     <outputDirectory>src/main/java</outputDirectory>
                     <clearOutputDir>false</clearOutputDir>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.sun.xml.ws</groupId>
-                <artifactId>jaxws-maven-plugin</artifactId>
-                <version>4.0.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <wsdlDirectory>${project.basedir}/src/main/resources/</wsdlDirectory>
-                    <packageName>ua.edu.sumdu.nefodov.wisdomvibes</packageName>
-                    <sourceDestDir>
-                        ${project.build.directory}/generated-sources/
-                    </sourceDestDir>
                 </configuration>
             </plugin>
         </plugins>
